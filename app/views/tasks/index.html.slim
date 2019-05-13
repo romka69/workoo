@@ -1,0 +1,7 @@
+.container
+  h1 = 'Задания'
+  .tasks
+    - @tasks.each do |task|
+      h5 = task.title
+      h5 = task.price
+      p = task.body
