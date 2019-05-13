@@ -22,6 +22,11 @@
       <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
     </div>
 
+    <div class="field">
+      <%= f.check_box :user_roles, { checked: false }, 'executor' %>
+      <%= f.label :user_roles, "Зарегистрироваться как исполнитель" %>
+    </div>
+
     <div class="actions">
       <%= f.submit "Sign up" %>
     </div>
