@@ -14,10 +14,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
-    if user_param["role"] == "customer"
-      resource.role_id = find_role(:customer)
-    else user_param["role"] == "executor"
-      resource.role_id = find_role(:executor)
+    if ["executor", "customer"].include?(user_param["role"])
+      resource.role = Role.find_role(user_param["role"])
     end
 
     resource.save
@@ -72,13 +70,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def user_param
     params.require(:user)
-  end
-
-  private
-
-  def find_role(role)
-    roles = { customer: 1, executor: 2 }
-    roles[role]
   end
 
   # If you have extra params to permit, append them to the sanitizer.
