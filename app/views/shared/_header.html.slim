@@ -2,18 +2,18 @@ header.header_area
   .main_menu
     nav.navbar.navbar-expand-lg.navbar-light
       .container.box_1620
-        = link_to 'WORKOO', root_path, class: 'navbar-brand logo_h'
+        =link_to 'WORKOO', root_path, class: 'navbar-brand logo_h'
         button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button"
           span.icon-bar
           span.icon-bar
           span.icon-bar
         #navbarSupportedContent.collapse.navbar-collapse.offset
           ul.nav.navbar-nav.menu_nav.justify-content-end
-            - if user_signed_in?
+            -if user_signed_in?
               li.nav-item
-                = link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'nav-link'
-            - else
+                =link_to 'Выйти', destroy_user_session_path, method: :delete, class: 'nav-link'
+            -else
               li.nav-item
-                = link_to 'Логин', new_user_session_path, class: 'nav-link'
+                =link_to 'Логин', new_user_session_path, class: 'nav-link'
               li.nav-item
-                = link_to 'Регистрация', new_user_registration_path, class: 'nav-link'
+                =link_to 'Регистрация', new_user_registration_path, class: 'nav-link'

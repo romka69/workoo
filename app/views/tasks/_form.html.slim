@@ -1,0 +1,19 @@
+.container
+  .row
+    .col-md-9
+      .form-errors
+        = render 'shared/errors', resource: task
+
+      =form_with model: task, local: true do |f|
+        div.form-group
+        div.field
+          =f.label :title, 'Название задания'
+          =f.text_field :title, class: 'form-control'
+        div.field.mt-4
+          =f.label :body, 'Что нужно сделать?'
+          =f.text_area :body, class: 'form-control'
+        div.field.mt-4
+          =f.label :price, 'Цена'
+          =f.text_field :price, class: 'form-control'
+
+        p.text-right.mt-4=f.submit 'Опубликовать задание', class: 'button button-hero'

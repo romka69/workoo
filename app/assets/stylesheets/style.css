@@ -25,7 +25,6 @@ body {
 }
 
 ul {
-  list-style-type: none;
   margin: 0;
   padding: 0;
 }
@@ -823,7 +822,6 @@ h3, .h3 {
 }
 
 .hero-banner-sm {
-  background: url(../img/banner/banner.png) left center no-repeat;
   background-size: cover;
   padding-top: 140px;
   padding-bottom: 90px;
@@ -831,8 +829,8 @@ h3, .h3 {
 
 @media (min-width: 992px) {
   .hero-banner-sm {
-    padding-top: 240px;
-    padding-bottom: 140px;
+    padding-top: 50px;
+    padding-bottom: 30px;
   }
 }
 
@@ -2507,7 +2505,6 @@ h3, .h3 {
   color: #fff;
   border-radius: 30px;
   padding: 8px 25px;
-  text-transform: capitalize;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
