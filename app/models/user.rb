@@ -5,4 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :role
+
+  def customer?
+    self.role["role_name"] == "customer"
+  end
+
+  def executor?
+    self.role["role_name"] == "executor"
+  end
 end
