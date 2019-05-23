@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
-  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_user!, only: %i[new create edit update]
 
-  authorize_resource
+  load_and_authorize_resource
 
   def index
     @tasks = Task.all
@@ -14,7 +14,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(tasks_params)
+    @task = Task.new(task_params)
     @task.author = current_user
 
     if @task.save
@@ -24,9 +24,20 @@ class TasksController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    if task.update(task_params)
+      redirect_to task, notice: 'Задание обновлено'
+    else
+      render :edit
+    end
+  end
+
   private
 
-  def tasks_params
+  def task_params
     params.require(:task).permit(:title, :body, :price)
   end
 
