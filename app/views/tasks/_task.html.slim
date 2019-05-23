@@ -4,13 +4,12 @@ article class="blog_item task task-#{task.id}"
       h2=task.title
     p=task.price
     p=task.body
-    //TODO: author and count of comments
-    //ul.blog-info-link
-    //  li
-    //    a href="qwerty"
-    //      i.far.fa-user
-    //      | USER NAME
-    //  li
-    //    a href="qwerty"
-    //      i.far.fa-comments
-    //      | NUMBER COMMENTS
+    ul.blog-info-link
+      li
+        //TODO: link on profile
+        i.far.fa-user= task.author.email
+      //TODO: count of comments
+      //li
+      //  a href="qwerty"
+      //    i.far.fa-comments
+      //      | NUMBER COMMENTS

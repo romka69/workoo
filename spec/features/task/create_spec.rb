@@ -21,6 +21,10 @@ feature 'Create task' do
         expect(page).to have_content 'Задание создано'
         expect(page).to have_content 'Тест заголовка'
         expect(page).to have_content 'Тестовое наполнение'
+
+        within('ul.blog-info-link') do
+          expect(page).to have_content customer.email
+        end
       end
 
       scenario 'create not valid task' do
