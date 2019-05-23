@@ -15,4 +15,8 @@ class User < ApplicationRecord
   def executor?
     self.role["role_name"] == "executor"
   end
+
+  def author_of?(resource)
+    resource.author_id == id
+  end
 end

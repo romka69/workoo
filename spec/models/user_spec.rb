@@ -26,4 +26,17 @@ RSpec.describe User, type: :model do
       expect(customer).to_not be_executor
     end
   end
+
+  describe '#author_of' do
+    let!(:customer2) { create :user }
+    let!(:task) { create :task, author: customer2 }
+
+    it 'true' do
+      expect(customer2).to be_author_of(task)
+    end
+
+    it 'false' do
+      expect(customer).to_not be_author_of(task)
+    end
+  end
 end
