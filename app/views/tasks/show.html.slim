@@ -6,15 +6,13 @@ section.blog_area.single-post-area.section-margin
           .blog_details
             h2=task.title
             h3 #{task.price} рублей
-            //TODO: author and count of comments
-            //ul.blog-info-link
-            //  li
-            //    a href="qwerty"
-            //      i.far.fa-user
-            //      | USER NAME
-            //  li
-            //    a href="qwerty"
-            //      i.far.fa-comments
-            //      | NUMBER COMMENTS
             p=task.body
-
+            ul.blog-info-link
+              li
+                //TODO: link on profile
+                i.far.fa-user= task.author.email
+              //TODO: count of comments
+              //li
+              //  a href="qwerty"
+              //    i.far.fa-comments
+              //      | NUMBER COMMENTS

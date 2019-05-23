@@ -10,6 +10,8 @@ feature 'The guest can see list a of all tasks' do
       expect(page).to have_content task.title
       expect(page).to have_content task.body
       expect(page).to have_content task.price
+
+      expect(page).to have_content task.author.email
     end
   end
 end

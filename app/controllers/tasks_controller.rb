@@ -15,6 +15,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(tasks_params)
+    @task.author = current_user
 
     if @task.save
       redirect_to @task, notice: 'Задание создано'
