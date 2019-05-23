@@ -22,7 +22,8 @@ class Ability
   def customer_abilities
     guest_abilities
 
-    can :manage, [Task]
+    can :create, [Task]
+    can :update, [Task], author_id: user.id
   end
 
   def executor_abilities

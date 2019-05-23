@@ -2,7 +2,7 @@ article class="blog_item task task-#{task.id}"
   .blog_details
     =link_to task_path(task), class: "d-inline-block"
       h2=task.title
-    p=task.price
+    p #{task.price} руб.
     p=task.body
     ul.blog-info-link
       li

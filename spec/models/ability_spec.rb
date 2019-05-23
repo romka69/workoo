@@ -13,8 +13,14 @@ RSpec.describe Ability, type: :model do
 
   describe 'for customer' do
     let(:user) { create :user }
+    let(:user2) { create :user }
+    let(:task) { create :task, author: user }
+    let(:task2) { create :task, author: user2 }
 
-    it { should be_able_to :manage, Task }
+    it { should be_able_to :create, Task }
+
+    it { should be_able_to :update, task }
+    it { should_not be_able_to :update, task2 }
   end
 
   describe 'for executor' do
