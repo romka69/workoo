@@ -1,0 +1,16 @@
+div.comment-list.comment
+  div.single-comment.justify-content-between.d-flex
+    div.user.justify-content-between.d-flex
+      // TODO: avatar user
+      // div.thumb
+      //   img
+      div.desc
+        p.comment = comment.body
+        div.d-flex.justify-content-between
+          div.d-flex.align-items-center
+            // TODO: link on profile
+            h5 = comment.author.email
+            p.date = comment.updated_at.strftime "%d/%m/%Y %H:%M"
+          // TODO: button reply
+          // div.reply-btn
+          // a.btn-reply.text-uppercase href="qwerty"

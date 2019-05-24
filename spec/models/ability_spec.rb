@@ -11,6 +11,12 @@ RSpec.describe Ability, type: :model do
     it { should_not be_able_to :manage, :all }
   end
 
+  describe 'for customer and executor' do
+    let(:user) { create :user }
+
+    it { should be_able_to :create, Comment }
+  end
+
   describe 'for customer' do
     let(:user) { create :user }
     let(:user2) { create :user }

@@ -7,4 +7,5 @@ RSpec.describe Task, type: :model do
   it { should validate_numericality_of :price }
 
   it { should belong_to :author }
+  it { should have_many(:comments).dependent(:destroy) }
 end

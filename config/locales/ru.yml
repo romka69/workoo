@@ -2,12 +2,15 @@ ru:
   activerecord:
     models:
       task: Задание
+      comment: Комментарий
 
     attributes:
       task:
         title: Заголовок
         body: Состав задания
         price: Цена
+      comment:
+        body: Комментарий
 
     errors:
       messages:
