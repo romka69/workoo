@@ -19,8 +19,13 @@ class Ability
     can :read, :all
   end
 
+  def customer_executor_abilities
+    can :create, [Comment]
+  end
+
   def customer_abilities
     guest_abilities
+    customer_executor_abilities
 
     can :create, [Task]
     can :update, [Task], author_id: user.id
@@ -28,5 +33,6 @@ class Ability
 
   def executor_abilities
     guest_abilities
+    customer_executor_abilities
   end
 end
