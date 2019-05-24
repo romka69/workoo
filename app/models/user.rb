@@ -7,6 +7,7 @@ class User < ApplicationRecord
   belongs_to :role
 
   has_many :tasks, foreign_key: 'author_id', dependent: :nullify
+  has_many :comments, foreign_key: 'author_id', dependent: :nullify
 
   def customer?
     self.role["role_name"] == "customer"

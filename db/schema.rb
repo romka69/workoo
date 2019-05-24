@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_23_100452) do
+ActiveRecord::Schema.define(version: 2019_05_24_155711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "author_id"
+    t.bigint "task_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_comments_on_author_id"
+    t.index ["task_id"], name: "index_comments_on_task_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "role_name", null: false
@@ -45,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_05_23_100452) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "tasks", "users", column: "author_id"
   add_foreign_key "users", "roles"
 end
