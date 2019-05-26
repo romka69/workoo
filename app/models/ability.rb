@@ -21,6 +21,8 @@ class Ability
 
   def customer_executor_abilities
     can :create, [Comment]
+
+    can :update, [Comment], author_id: user.id
   end
 
   def customer_abilities

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create]
+  before_action :authenticate_user!, only: %i[create update]
 
   load_and_authorize_resource
 
@@ -8,6 +8,15 @@ class CommentsController < ApplicationController
     @comment.author = current_user
     @comment.save
     flash[:notice] = 'Комментарий создан'
+  end
+
+  def update
+    if current_user.author_of?(comment) && comment.edit_time_not_left?
+      comment.update(comment_params)
+      flash[:notice] = 'Комментарий сохранен'
+    else
+      head :forbidden
+    end
   end
 
   private

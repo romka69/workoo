@@ -1,0 +1,6 @@
+$('.comment-edit-errors').html('<%= render 'shared/errors', resource: comment %>');
+
+<% if !comment.errors.present? %>
+$('.flash').append('<%= render 'shared/flash' %>');
+$('#comment-' + '<%= comment.id %>').html('<%= j render 'comments/comment' %>');
+<% end %>
