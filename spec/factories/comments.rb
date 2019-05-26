@@ -12,6 +12,7 @@ FactoryBot.define do
     end
 
     trait :with_task do
+      association :author, factory: :user
       association :task, factory: [:task, :with_author]
     end
   end

@@ -23,6 +23,7 @@ section.blog_area.single-post-area.section-margin
           - else
             h4 Комментариев еще нет
           =render task.comments
+
         - if can?(:create, Comment)
           =render 'comments/form'
 
