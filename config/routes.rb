@@ -1,3 +1,8 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: { registrations: 'users/registrations' }
+  root to: 'tasks#index'
+
+  resources :tasks, except: %i[destroy] do
+    resources :comments, shallow: true, only: %i[new create show update]
+  end
 end

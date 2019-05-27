@@ -1,0 +1,12 @@
+div.comment-form
+  h4 Оставьте комментарий
+  .comment-errors
+    = render 'shared/errors', resource: @comment
+
+  = form_with model: [task, @comment], class: 'form-contact comment_form' do |f|
+    div.row
+      div.col-12
+        div.form-group
+          = f.text_area :body, { class: 'form-control w-100', cols: '30', rows: '9' }
+    div.form-group
+      = f.submit 'Опубликовать', class: 'button button-contactForm'

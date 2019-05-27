@@ -1,0 +1,31 @@
+div.comment-list.comment id="comment-#{comment.id}"
+  div.single-comment.justify-content-between.d-flex
+    div.user.justify-content-between.d-flex
+      // TODO: avatar user
+      // div.thumb
+      //   img
+      div.desc
+        p.comment = comment.body
+        div.d-flex.justify-content-between
+          div.d-flex.align-items-center
+            // TODO: link on profile
+            h5 = comment.author.email
+            p.date = comment.updated_at.strftime "%d/%m/%Y %H:%M"
+
+          - if current_user&.author_of?(comment) && can?(:update, Comment) && comment.edit_time_not_left?
+            = link_to 'Изменить комментарий','#', class: 'edit-comment-link', data: { comment_id: comment.id }
+          // TODO: button reply
+          // div.reply-btn
+          // a.btn-reply.text-uppercase href="qwerty"
+
+  div.comment-form.hide.edit-form id="edit-comment-#{comment.id}"
+    div.comment-edit-errors
+      = render 'shared/errors', resource: @comment
+
+    = form_with model: comment, class: 'form-contact comment_form' do |f|
+      div.row
+        div.col-12
+          div.form-group
+            = f.text_area :body, { class: 'form-control w-100', id: 'comment_body_edit', cols: '30', rows: '9' }
+      div.form-group
+        = f.submit 'Сохранить', class: 'button button-contactForm'

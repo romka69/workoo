@@ -1,0 +1,14 @@
+section.hero-banner-sm
+  .container
+    .hero-banner-sm-content
+      h1 Все задания
+      p На задание можно откликнуться, если вы исполнитель
+
+.container
+  .row
+    .col-md-9
+      .tasks
+        =render @tasks
+    .col-md-3
+      -if can?(:create, Task)
+        =link_to 'Создать задание', new_task_path, class: 'button button-hero'

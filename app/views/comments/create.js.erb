@@ -1,0 +1,7 @@
+$('.comment-errors').html('<%= render 'shared/errors', resource: comment %>');
+
+<% if comment.persisted? %>
+$('.flash').append('<%= render 'shared/flash' %>');
+$('.comments-area.comments').append('<%= j render comment %>');
+$('.form-control#comment_body').val('');
+<% end %>
