@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_many :tasks, foreign_key: 'author_id', dependent: :nullify
   has_many :comments, foreign_key: 'author_id', dependent: :nullify
+  has_many :bids, dependent: :destroy
+  has_many :targets, through: :bids, source: :task
 
   def customer?
     self.role["role_name"] == "customer"

@@ -4,6 +4,8 @@ RSpec.describe User, type: :model do
   it { should belong_to :role }
   it { should have_many(:tasks).with_foreign_key('author_id').dependent(:nullify) }
   it { should have_many(:comments).with_foreign_key('author_id').dependent(:nullify) }
+  it { should have_many(:bids).dependent(:destroy) }
+  it { should have_many(:targets).through(:bids) }
 
   let!(:customer) { create :user }
   let!(:executor) { create :user, :executor }

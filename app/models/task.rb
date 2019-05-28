@@ -5,4 +5,6 @@ class Task < ApplicationRecord
   belongs_to :author, class_name: 'User'
 
   has_many :comments, dependent: :destroy
+  has_many :bids, dependent: :destroy
+  has_many :members, through: :bids, source: :user
 end

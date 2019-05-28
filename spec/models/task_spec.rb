@@ -8,4 +8,6 @@ RSpec.describe Task, type: :model do
 
   it { should belong_to :author }
   it { should have_many(:comments).dependent(:destroy) }
+  it { should have_many(:bids).dependent(:destroy) }
+  it { should have_many(:members).through(:bids) }
 end
