@@ -1,5 +1,7 @@
-.bid-control
-  - if current_user&.have_bid?(resource)
-    = link_to 'Удалить заявку', bid_path(bid), method: :delete, remote: true, class: 'button button-hero'
-  - else
-    = link_to 'Подать заявку', task_bids_path(resource), method: :post, remote: true, class: 'button button-hero'
+.media.post_item
+  // TODO: avatar executor with link to profile
+  // img src="qwerty" /
+  .media-body
+    h3 = resource.user.email
+    p
+      = link_to 'Утвердить', approve_executor_bid_path(resource), method: :patch, remote: true, class: 'button rounded-0 primary-bg text-white text-center w-100'

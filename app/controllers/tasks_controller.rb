@@ -9,6 +9,7 @@ class TasksController < ApplicationController
 
   def show
     @comment = Comment.new
+    @bids = task.bids
   end
 
   def new
@@ -46,6 +47,7 @@ class TasksController < ApplicationController
     @task ||= params[:id] ? Task.find(params[:id]) : Task.new
   end
 
+  # method for executor (partial bid/bid_link)
   def bid
     @bid ||= task.bids.find_by(user: current_user)
   end

@@ -29,11 +29,15 @@ RSpec.describe Ability, type: :model do
     let(:user2) { create :user }
     let(:task) { create :task, author: user }
     let(:task2) { create :task, author: user2 }
+    let(:user3) { create :user, :executor }
+    let(:bid) { create :bid, user: user3, task: task }
 
     it { should be_able_to :create, Task }
 
     it { should be_able_to :update, task }
     it { should_not be_able_to :update, task2 }
+
+    it { should be_able_to :approve_executor, bid }
   end
 
   describe 'for executor' do

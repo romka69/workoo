@@ -28,10 +28,27 @@ section.blog_area.single-post-area.section-margin
           = render 'comments/form'
 
       .col-md-3
-        - if current_user&.author_of?(task) && can?(:update, Task)
-          = link_to 'Изменить задание', edit_task_path, class: 'button button-hero'
+        .blog_right_sidebar
+          - if current_user&.author_of?(task) && can?(:update, Task)
+            = link_to 'Изменить задание', edit_task_path, class: 'button button-hero w-100 text-center'
 
-        - if can?(:create, Bid)
-          = render 'bids/bid', resource: task
+          - if can?(:create, Bid)
+            = render 'bids/bid_link', resource: task
+
+          .bids.mt-5
+            aside.single_sidebar_widget.popular_post_widget
+              - if task.bids.present?
+
+                - if task.bids.find_by(approve: true)
+                  h3 Исполнитель выбран
+                - else
+
+                  - if current_user&.author_of?(task) && can?(:approve_executor, Bid)
+                    h3.widget_title Поданные заявки
+                    .bid
+                      - task.bids.each do |bid|
+                        = render 'bids/bid', resource: bid
+                  - else
+                    h3 Подано заявок: #{task.bids.size}
 
 
