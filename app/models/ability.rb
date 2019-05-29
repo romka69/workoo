@@ -30,7 +30,10 @@ class Ability
     customer_executor_abilities
 
     can :create, [Task]
+
     can :update, [Task], author_id: user.id
+
+    can :approve_executor, [Bid]
   end
 
   def executor_abilities

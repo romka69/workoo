@@ -18,6 +18,14 @@ class BidsController < ApplicationController
     end
   end
 
+  def approve_executor
+    if current_user.author_of?(task)
+      bid.set_approve
+    else
+      head :forbidden
+    end
+  end
+
   private
 
   def task
