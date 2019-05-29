@@ -1,0 +1,5 @@
+.bid-control
+  - if current_user&.have_bid?(resource)
+    = link_to 'Удалить заявку', bid_path(bid), method: :delete, remote: true, class: 'button button-hero'
+  - else
+    = link_to 'Подать заявку', task_bids_path(resource), method: :post, remote: true, class: 'button button-hero'

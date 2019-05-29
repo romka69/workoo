@@ -37,5 +37,9 @@ RSpec.describe Ability, type: :model do
   end
 
   describe 'for executor' do
+    let(:user) { create :user, :executor }
+
+    it { should be_able_to :create, Bid }
+    it { should be_able_to :destroy, Bid }
   end
 end

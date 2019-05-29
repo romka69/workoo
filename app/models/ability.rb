@@ -36,5 +36,8 @@ class Ability
   def executor_abilities
     guest_abilities
     customer_executor_abilities
+
+    can :create, [Bid]
+    can :destroy, [Bid]
   end
 end

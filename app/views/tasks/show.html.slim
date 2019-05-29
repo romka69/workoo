@@ -4,15 +4,15 @@ section.blog_area.single-post-area.section-margin
       .col-md-9.posts-list
         .single-post.task
           .blog_details
-            h2=task.title
-            h3 #{task.price} руб.
-            p=task.body
+            h2 = task.title
+            h3 #{ task.price } руб.
+            p = task.body
             ul.blog-info-link
               li
-                //TODO: link on profile
-                i.far.fa-user= task.author.email
-              //TODO: count of comments
-              //li
+                // TODO: link on profile
+                i.far.fa-user = task.author.email
+              // TODO: count of comments
+              // li
               //  a href="qwerty"
               //    i.far.fa-comments
               //      | NUMBER COMMENTS
@@ -22,11 +22,16 @@ section.blog_area.single-post-area.section-margin
             h4 Комментарии
           - else
             h4 Комментариев еще нет
-          =render task.comments
+          = render task.comments
 
         - if can?(:create, Comment)
-          =render 'comments/form'
+          = render 'comments/form'
 
       .col-md-3
-        -if current_user&.author_of?(task) && can?(:update, Task)
-          =link_to 'Изменить задание', edit_task_path, class: 'button button-hero'
+        - if current_user&.author_of?(task) && can?(:update, Task)
+          = link_to 'Изменить задание', edit_task_path, class: 'button button-hero'
+
+        - if can?(:create, Bid)
+          = render 'bids/bid', resource: task
+
+
