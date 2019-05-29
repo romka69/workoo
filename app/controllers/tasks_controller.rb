@@ -46,6 +46,10 @@ class TasksController < ApplicationController
     @task ||= params[:id] ? Task.find(params[:id]) : Task.new
   end
 
-  helper_method :task
+  def bid
+    @bid ||= task.bids.find_by(user: current_user)
+  end
+
+  helper_method :task, :bid
 
 end

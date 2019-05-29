@@ -22,4 +22,8 @@ class User < ApplicationRecord
   def author_of?(resource)
     resource.author_id == id
   end
+
+  def have_bid?(task)
+    targets.exists?(task.id)
+  end
 end

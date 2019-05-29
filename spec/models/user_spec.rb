@@ -42,4 +42,19 @@ RSpec.describe User, type: :model do
       expect(customer).to_not be_author_of(task)
     end
   end
+
+  describe '#have_bid?' do
+    let(:user) { create :user, :executor }
+    let(:task) { create :task, author: user }
+    let!(:bid) { create :bid, user: user, task: task }
+    let(:user2) { create :user, :executor }
+
+    it 'true' do
+      expect(user).to be_have_bid(task)
+    end
+
+    it 'false' do
+      expect(user2).to_not be_have_bid(task)
+    end
+  end
 end
