@@ -37,6 +37,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete
+    unless task.set_complete
+      head :forbidden
+    end
+  end
+
   private
 
   def task_params

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'tasks#index'
 
   resources :tasks, except: %i[destroy] do
+    patch :complete, on: :member
     resources :bids, shallow: true, only: %i[create destroy] do
       patch :approve_executor, on: :member
     end

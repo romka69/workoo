@@ -37,6 +37,9 @@ RSpec.describe Ability, type: :model do
     it { should be_able_to :update, task }
     it { should_not be_able_to :update, task2 }
 
+    it { should be_able_to :complete, task }
+    it { should_not be_able_to :complete, task2 }
+
     it { should be_able_to :approve_executor, bid }
   end
 

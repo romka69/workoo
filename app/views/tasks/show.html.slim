@@ -42,13 +42,20 @@ section.blog_area.single-post-area.section-margin
                 - if task.bids.find_by(approve: true)
                   h3 Исполнитель выбран
                 - else
-
-                  - if current_user&.author_of?(task) && can?(:approve_executor, Bid)
+                  - if !(task.completed?) && current_user&.author_of?(task) && can?(:approve_executor, Bid)
                     h3.widget_title Поданные заявки
                     .bid
                       - task.bids.each do |bid|
                         = render 'bids/bid', resource: bid
                   - else
                     h3 Подано заявок: #{task.bids.size}
+              - else
+                h3 Исполнителей еще нет
 
-
+          - if task.bids.find_by(approve: true) && current_user&.author_of?(task) && can?(:complete, Task)
+            .complete_task.mt-5
+              - if task.completed?
+                aside.single_sidebar_widget.popular_post_widget
+                  h3 Задание закрыто
+              - else
+                = link_to 'Закрыть задание', complete_task_path, method: :patch, remote: true, class: 'button button-hero w-100 text-center'
