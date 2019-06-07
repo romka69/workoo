@@ -33,6 +33,8 @@ class Ability
 
     can :update, [Task], author_id: user.id
 
+    can :complete, [Task], author_id: user.id
+
     can :approve_executor, [Bid]
   end
 
