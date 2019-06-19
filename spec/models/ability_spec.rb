@@ -19,6 +19,7 @@ RSpec.describe Ability, type: :model do
     let(:comment2) { create :comment, task: task, author: user2 }
 
     it { should be_able_to :create, Comment }
+    it { should be_able_to :create, Review }
 
     it { should be_able_to :update, comment }
     it { should_not be_able_to :update, comment2 }

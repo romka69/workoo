@@ -1,0 +1,7 @@
+$('.review-errors').html('<%= render 'shared/errors', resource: review %>');
+
+<% if review.persisted? %>
+$('.flash').append('<%= render 'shared/flash' %>');
+$('.review-form').html('<h6>Отзыв оставлен</h6>');
+$('.form-control#comment_body').val('');
+<% end %>

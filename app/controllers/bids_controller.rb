@@ -21,6 +21,7 @@ class BidsController < ApplicationController
   def approve_executor
     if current_user.author_of?(task)
       bid.set_approve
+      task.set_executor(bid.user)
     else
       head :forbidden
     end
