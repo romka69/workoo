@@ -20,9 +20,9 @@ section.blog_area.single-post-area.section-margin
         div.comments-area.comments
           - if task.comments.present?
             h4 Комментарии
+            = render task.comments
           - else
             h4 Комментариев еще нет
-          = render task.comments
 
         - if can?(:create, Comment)
           = render 'comments/form'
@@ -39,8 +39,10 @@ section.blog_area.single-post-area.section-margin
             aside.single_sidebar_widget.popular_post_widget
               - if task.bids.present?
 
-                - if task.bids.find_by(approve: true)
-                  h3 Исполнитель выбран
+                - if task.executor_id != 0
+                  h3 Исполнитель выбран:
+                  // TODO: link on profile
+                  span #{User.find(task.executor_id).email}
                 - else
                   - if !(task.completed?) && current_user&.author_of?(task) && can?(:approve_executor, Bid)
                     h3.widget_title Поданные заявки
@@ -52,10 +54,17 @@ section.blog_area.single-post-area.section-margin
               - else
                 h3 Исполнителей еще нет
 
-          - if task.bids.find_by(approve: true) && current_user&.author_of?(task) && can?(:complete, Task)
-            .complete_task.mt-5
-              - if task.completed?
-                aside.single_sidebar_widget.popular_post_widget
-                  h3 Задание закрыто
-              - else
+          - if task.bids.find_by(approve: true)
+            - if task.completed?
+              aside.single_sidebar_widget.popular_post_widget
+                h3 Задание закрыто
+
+                - if can?(:create, Review) && (current_user&.author_of?(task) || (current_user&.id == task.executor_id))  && can_review?
+                  = render 'reviews/form', resource: Review
+                - elsif current_user&.author_of?(task) || (current_user&.id == task.executor_id)
+                  hr
+                  h6 Отзыв оставлен
+
+            - elsif current_user&.author_of?(task) && can?(:complete, Task)
+              .complete_task.mt-5
                 = link_to 'Закрыть задание', complete_task_path, method: :patch, remote: true, class: 'button button-hero w-100 text-center'

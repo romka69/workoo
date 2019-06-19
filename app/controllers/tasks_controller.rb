@@ -10,6 +10,7 @@ class TasksController < ApplicationController
   def show
     @comment = Comment.new
     @bids = task.bids
+    @review = Review.new
   end
 
   def new
