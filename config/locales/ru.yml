@@ -3,6 +3,7 @@ ru:
     models:
       task: Задание
       comment: Комментарий
+      review: Отзыв
 
     attributes:
       task:
@@ -11,6 +12,8 @@ ru:
         price: Цена
       comment:
         body: Комментарий
+      review:
+        body: Отзыв
 
     errors:
       messages:

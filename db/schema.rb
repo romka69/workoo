@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_24_155711) do
+ActiveRecord::Schema.define(version: 2019_06_17_125127) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bids", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "task_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "approve", default: false
+    t.index ["task_id"], name: "index_bids_on_task_id"
+    t.index ["user_id", "task_id"], name: "index_bids_on_user_id_and_task_id", unique: true
+    t.index ["user_id"], name: "index_bids_on_user_id"
+  end
 
   create_table "comments", force: :cascade do |t|
     t.text "body", null: false
@@ -23,6 +34,19 @@ ActiveRecord::Schema.define(version: 2019_05_24_155711) do
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["task_id"], name: "index_comments_on_task_id"
+  end
+
+  create_table "reviews", force: :cascade do |t|
+    t.bigint "for_user_id"
+    t.bigint "by_user_id"
+    t.bigint "task_id"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["by_user_id", "for_user_id", "task_id"], name: "index_reviews_on_by_user_id_and_for_user_id_and_task_id", unique: true
+    t.index ["by_user_id"], name: "index_reviews_on_by_user_id"
+    t.index ["for_user_id"], name: "index_reviews_on_for_user_id"
+    t.index ["task_id"], name: "index_reviews_on_task_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -38,6 +62,8 @@ ActiveRecord::Schema.define(version: 2019_05_24_155711) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "author_id"
+    t.boolean "completed", default: false
+    t.integer "executor_id", default: 0
     t.index ["author_id"], name: "index_tasks_on_author_id"
   end
 
@@ -55,7 +81,11 @@ ActiveRecord::Schema.define(version: 2019_05_24_155711) do
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "bids", "tasks"
+  add_foreign_key "bids", "users"
   add_foreign_key "comments", "users", column: "author_id"
+  add_foreign_key "reviews", "users", column: "by_user_id"
+  add_foreign_key "reviews", "users", column: "for_user_id"
   add_foreign_key "tasks", "users", column: "author_id"
   add_foreign_key "users", "roles"
 end

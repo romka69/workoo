@@ -4,6 +4,8 @@ RSpec.describe User, type: :model do
   it { should belong_to :role }
   it { should have_many(:tasks).with_foreign_key('author_id').dependent(:nullify) }
   it { should have_many(:comments).with_foreign_key('author_id').dependent(:nullify) }
+  it { should have_many(:bids).dependent(:destroy) }
+  it { should have_many(:targets).through(:bids) }
 
   let!(:customer) { create :user }
   let!(:executor) { create :user, :executor }
@@ -38,6 +40,21 @@ RSpec.describe User, type: :model do
 
     it 'false' do
       expect(customer).to_not be_author_of(task)
+    end
+  end
+
+  describe '#have_bid?' do
+    let(:user) { create :user, :executor }
+    let(:task) { create :task, author: user }
+    let!(:bid) { create :bid, user: user, task: task }
+    let(:user2) { create :user, :executor }
+
+    it 'true' do
+      expect(user).to be_have_bid(task)
+    end
+
+    it 'false' do
+      expect(user2).to_not be_have_bid(task)
     end
   end
 end

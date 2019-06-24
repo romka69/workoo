@@ -4,15 +4,15 @@ section.blog_area.single-post-area.section-margin
       .col-md-9.posts-list
         .single-post.task
           .blog_details
-            h2=task.title
-            h3 #{task.price} руб.
-            p=task.body
+            h2 = task.title
+            h3 #{ task.price } руб.
+            p = task.body
             ul.blog-info-link
               li
-                //TODO: link on profile
-                i.far.fa-user= task.author.email
-              //TODO: count of comments
-              //li
+                // TODO: link on profile
+                i.far.fa-user = task.author.email
+              // TODO: count of comments
+              // li
               //  a href="qwerty"
               //    i.far.fa-comments
               //      | NUMBER COMMENTS
@@ -20,13 +20,51 @@ section.blog_area.single-post-area.section-margin
         div.comments-area.comments
           - if task.comments.present?
             h4 Комментарии
+            = render task.comments
           - else
             h4 Комментариев еще нет
-          =render task.comments
 
         - if can?(:create, Comment)
-          =render 'comments/form'
+          = render 'comments/form'
 
       .col-md-3
-        -if current_user&.author_of?(task) && can?(:update, Task)
-          =link_to 'Изменить задание', edit_task_path, class: 'button button-hero'
+        .blog_right_sidebar
+          - if current_user&.author_of?(task) && can?(:update, Task)
+            = link_to 'Изменить задание', edit_task_path, class: 'button button-hero w-100 text-center'
+
+          - if can?(:create, Bid)
+            = render 'bids/bid_link', resource: task
+
+          .bids.mt-5
+            aside.single_sidebar_widget.popular_post_widget
+              - if task.bids.present?
+
+                - if task.executor_id != 0
+                  h3 Исполнитель выбран:
+                  // TODO: link on profile
+                  span #{User.find(task.executor_id).email}
+                - else
+                  - if !(task.completed?) && current_user&.author_of?(task) && can?(:approve_executor, Bid)
+                    h3.widget_title Поданные заявки
+                    .bid
+                      - task.bids.each do |bid|
+                        = render 'bids/bid', resource: bid
+                  - else
+                    h3 Подано заявок: #{task.bids.size}
+              - else
+                h3 Исполнителей еще нет
+
+          - if task.bids.find_by(approve: true)
+            - if task.completed?
+              aside.single_sidebar_widget.popular_post_widget
+                h3 Задание закрыто
+
+                - if can?(:create, Review) && (current_user&.author_of?(task) || (current_user&.id == task.executor_id))  && can_review?
+                  = render 'reviews/form', resource: Review
+                - elsif current_user&.author_of?(task) || (current_user&.id == task.executor_id)
+                  hr
+                  h6 Отзыв оставлен
+
+            - elsif current_user&.author_of?(task) && can?(:complete, Task)
+              .complete_task.mt-5
+                = link_to 'Закрыть задание', complete_task_path, method: :patch, remote: true, class: 'button button-hero w-100 text-center'

@@ -9,6 +9,8 @@ class TasksController < ApplicationController
 
   def show
     @comment = Comment.new
+    @bids = task.bids
+    @review = Review.new
   end
 
   def new
@@ -36,6 +38,12 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete
+    unless task.set_complete
+      head :forbidden
+    end
+  end
+
   private
 
   def task_params
@@ -46,6 +54,11 @@ class TasksController < ApplicationController
     @task ||= params[:id] ? Task.find(params[:id]) : Task.new
   end
 
-  helper_method :task
+  # method for executor (partial bid/bid_link)
+  def bid
+    @bid ||= task.bids.find_by(user: current_user)
+  end
+
+  helper_method :task, :bid
 
 end

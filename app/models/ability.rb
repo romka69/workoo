@@ -21,6 +21,7 @@ class Ability
 
   def customer_executor_abilities
     can :create, [Comment]
+    can :create, [Review]
 
     can :update, [Comment], author_id: user.id
   end
@@ -30,11 +31,20 @@ class Ability
     customer_executor_abilities
 
     can :create, [Task]
+
     can :update, [Task], author_id: user.id
+
+    can :complete, [Task], author_id: user.id
+
+    can :approve_executor, [Bid]
   end
 
   def executor_abilities
     guest_abilities
     customer_executor_abilities
+
+    can :create, [Bid]
+
+    can :destroy, [Bid]
   end
 end

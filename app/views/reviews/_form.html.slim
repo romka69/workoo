@@ -1,0 +1,16 @@
+hr
+div.review-form
+  - if current_user.customer?
+    h6 Оставьте отзыв о исполнителе
+  - else
+    h6 Оставьте отзыв о заказчике
+  .review-errors
+    = render 'shared/errors', resource: @review
+
+  = form_with model: [task, @review], class: 'form-contact review_form' do |f|
+    div.row
+      div.col-12
+        div.form-group
+          = f.text_area :body, { class: 'form-control w-100' }
+    div.form-group
+      = f.submit 'Отправить', class: 'button button-contactForm'
