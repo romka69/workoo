@@ -39,10 +39,10 @@ section.blog_area.single-post-area.section-margin
             aside.single_sidebar_widget.popular_post_widget
               - if task.bids.present?
 
-                - if task.executor_id != 0
+                - if task.executor.present?
                   h3 Исполнитель выбран:
                   // TODO: link on profile
-                  span #{User.find(task.executor_id).email}
+                  span #{task.executor.email}
                 - else
                   - if !(task.completed?) && current_user&.author_of?(task) && can?(:approve_executor, Bid)
                     h3.widget_title Поданные заявки
@@ -59,9 +59,9 @@ section.blog_area.single-post-area.section-margin
               aside.single_sidebar_widget.popular_post_widget
                 h3 Задание закрыто
 
-                - if can?(:create, Review) && (current_user&.author_of?(task) || (current_user&.id == task.executor_id))  && can_review?
+                - if can?(:create, Review) && (current_user&.author_of?(task) || (current_user&.id == task.executor.id))  && can_review?
                   = render 'reviews/form', resource: Review
-                - elsif current_user&.author_of?(task) || (current_user&.id == task.executor_id)
+                - elsif current_user&.author_of?(task) || (current_user&.id == task.executor.id)
                   hr
                   h6 Отзыв оставлен
 
