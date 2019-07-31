@@ -24,6 +24,8 @@ class Ability
     can :create, [Review]
 
     can :update, [Comment], author_id: user.id
+
+    can :update, [User], id: user.id
   end
 
   def customer_abilities

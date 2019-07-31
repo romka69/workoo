@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'The guest can register as customer or executor' do
+feature 'The guest can Sign in/Sign up in service' do
   describe 'Sign in' do
     background do
       visit root_path
@@ -39,13 +39,19 @@ feature 'The guest can register as customer or executor' do
   end
 
   describe 'Sign up' do
+    scenario 'unregistered user tries to sign up with errors' do
+      visit root_path
+      click_on 'Регистрация'
+      click_on 'Зарегистрироваться'
+
+      expect(page).to have_content 'сохранение не удалось'
+    end
+
     background do
       Role.create!([{ role_name: 'customer' }, { role_name: 'executor' }])
 
       visit root_path
       click_on 'Регистрация'
-
-      sleep 0.2
 
       fill_in 'Электронная почта', with: 'usertest@usertest.test'
       fill_in 'Пароль', with: '12345678'

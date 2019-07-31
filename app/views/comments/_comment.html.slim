@@ -8,8 +8,8 @@ div.comment-list.comment id="comment-#{comment.id}"
         p.comment = comment.body
         div.d-flex.justify-content-between
           div.d-flex.align-items-center
-            // TODO: link on profile
-            h5 = comment.author.email
+            h5
+              = link_to comment.author.email, user_path(comment.author.id)
             p.date = comment.updated_at.strftime "%d/%m/%Y %H:%M"
 
           - if current_user&.author_of?(comment) && can?(:update, Comment) && comment.edit_time_not_left?

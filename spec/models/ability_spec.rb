@@ -23,6 +23,9 @@ RSpec.describe Ability, type: :model do
 
     it { should be_able_to :update, comment }
     it { should_not be_able_to :update, comment2 }
+
+    it { should be_able_to :update, user }
+    it { should_not be_able_to :update, user2 }
   end
 
   describe 'for customer' do
