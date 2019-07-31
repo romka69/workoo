@@ -9,8 +9,8 @@ section.blog_area.single-post-area.section-margin
             p = task.body
             ul.blog-info-link
               li
-                // TODO: link on profile
-                i.far.fa-user = task.author.email
+                i.far.fa-user
+                  = link_to task.author.email, user_path(task.author.id)
               // TODO: count of comments
               // li
               //  a href="qwerty"
