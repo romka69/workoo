@@ -7,6 +7,11 @@ FactoryBot.define do
     email
     password { '123456' }
     password_confirmation { '123456' }
+    first_name { 'Name_test' }
+    last_name { 'Last_name_test' }
+    city { 'City_test' }
+    birth_date { '21-04-2016' }
+    about { 'Test about' }
     association :role, factory: :role
 
     trait :executor do

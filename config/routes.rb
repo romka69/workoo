@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
+
   root to: 'tasks#index'
+
+  resources :users, only: %i[show]
 
   resources :tasks, except: %i[destroy] do
     patch :complete, on: :member

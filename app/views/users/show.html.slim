@@ -1,0 +1,30 @@
+section.blog_area.single-post-area.section-margin
+  .container
+    .row
+      .col-md-9.user-info
+        .single-post.user
+          .blog_details
+            h2.full-name = full_name
+            hr
+
+            h3 Электронная почта:
+            p.excert
+              a = mail_to user.email, user.email
+
+            h3 Город:
+            - if user.city.present?
+              p.excert = user.city
+            - else
+              p.excert Не указан
+
+            h3 Возраст:
+            - if user.birth_date.present?
+              p.excert = t('datetime.distance_in_words.x_years', count: age)
+            - else
+              p.excert Не указан
+
+            h3 Обо мне:
+            - if user.about.present?
+              p.excert = user.about
+            - else
+              p.excert Пользователь не заполнил данные
