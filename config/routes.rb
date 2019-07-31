@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   root to: 'tasks#index'
 
-  resources :users, only: %i[show]
+  resources :users, only: %i[show edit update]
 
   resources :tasks, except: %i[destroy] do
     patch :complete, on: :member

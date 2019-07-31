@@ -1,0 +1,40 @@
+.container.mt-5
+  .hero-banner-sm-content
+    h1 style=("color: #6059f6;")  Редактирование профиля
+  .row.justify-content-center.mt-3
+    .col.col-md-6
+      .card.border-primary.mb-4
+        .card-body
+          .form-errors
+            = render 'shared/errors', resource: user
+
+          =form_with model: user, local: true do |f|
+            .form-group.mt-3
+              .field
+                = f.label :first_name, "Имя"
+                br/
+                = f.text_field :first_name, autofocus: true, class: "form-control"
+              .field.mt-3
+                = f.label :last_name, "Фамилия"
+                br/
+                = f.text_field :last_name, autofocus: true, class: "form-control"
+              .field.mt-3
+                = f.label :city, "Город"
+                br/
+                = f.text_field :city, autofocus: true, class: "form-control"
+              .field.mt-3
+                = f.label :birth_date, "Дата рождения"
+                br/
+                = f.date_select :birth_date, { start_year: Date.today.year - 14, end_year: Date.today.year - 90 }, class: "form-control"
+              .field.mt-3
+                = f.label :about, "Обо мне"
+                br/
+                = f.text_area :about, autofocus: true, class: "form-control"
+              .text-center.mt-4
+                = f.submit "Обновить", class: "button rounded-0 primary-bg text-white"
+
+  - if current_user&.id == user.id && can?(:update, User)
+    = link_to "Изменить пароль", edit_user_registration_path
+
+  .row.justify-content-center.mt-2
+    = link_to "Назад", :back, class: "button button-hero mt-4"

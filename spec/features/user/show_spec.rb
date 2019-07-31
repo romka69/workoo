@@ -3,7 +3,7 @@ require 'rails_helper'
 feature 'Show profile' do
   include UsersHelper
 
-  given!(:user) { create :user }
+  given!(:user) { create :user, :profile }
 
   scenario 'Unauthenticated user not can link to his profile' do
     visit root_path

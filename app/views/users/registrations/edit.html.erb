@@ -1,43 +1,53 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container mt-5">
+  <div class="hero-banner-sm-content">
+    <h1 style="color: #6059f6;">Изменение пароля</h1>
   </div>
+  <div class="row justify-content-center mt-3">
+    <div class="col col-md-6">
+      <div class="card border-primary mb-4">
+        <div class="card-body">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+            <div class="form-group mt-3">
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+              <div class="field">
+                <%= f.label :email, "Электронная почта" %><br />
+                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+              </div>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
+              <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                <div class="mt-1">Ждем подтверждения почты: <%= resource.unconfirmed_email %></div>
+              <% end %>
+
+              <div class="field mt-3">
+                <%= f.label :password, "Новый пароль" %> <i>(не трогайте это поле, если не хотите менять пароль)</i><br>
+                <% if @minimum_password_length %>
+                  <em>(минимум <%= @minimum_password_length %> символов)</em>
+                <% end %><br />
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+              </div>
+
+              <div class="field mt-3">
+                <%= f.label :password_confirmation, "Подтвердите пароль" %><br />
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+              </div>
+
+              <div class="field mt-3">
+                <%= f.label :current_password, "Текущий пароль" %> <i>(введите для подтвреждения текущих изменений)</i><br />
+                <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control"%>
+              </div>
+
+              <div class="text-center mt-4">
+                <%= f.submit "Обновить", class: "button rounded-0 primary-bg text-white" %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="row justify-content-center mt-5">
+    <%= link_to "Назад", :back, class: "button button-hero" %>
   </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+  <p class="mt-5"><%= link_to "Удаление профиля", registration_path(resource_name), data: { confirm: "Вы уверены?" }, method: :delete, style: "color:red" %></p>
+</div>

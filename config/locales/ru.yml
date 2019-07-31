@@ -4,6 +4,7 @@ ru:
       task: Задание
       comment: Комментарий
       review: Отзыв
+      user: Профиль
 
     attributes:
       task:
@@ -14,6 +15,15 @@ ru:
         body: Комментарий
       review:
         body: Отзыв
+      user:
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        current_password: Текущий пароль
+        first_name: Имя
+        last_name: Фамилия
+        city: Город
+        birth_date: Дата рождения
+        about: Обо мне
 
     errors:
       messages:

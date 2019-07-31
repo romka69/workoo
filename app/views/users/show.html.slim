@@ -4,7 +4,8 @@ section.blog_area.single-post-area.section-margin
       .col-md-9.user-info
         .single-post.user
           .blog_details
-            h2.full-name = full_name
+            .d-sm-flex.justify-content-between
+              h2.full-name = full_name
             hr
 
             h3 Электронная почта:
@@ -19,7 +20,7 @@ section.blog_area.single-post-area.section-margin
 
             h3 Возраст:
             - if user.birth_date.present?
-              p.excert = t('datetime.distance_in_words.x_years', count: age)
+              p.excert = t("datetime.distance_in_words.x_years", count: age)
             - else
               p.excert Не указан
 
@@ -28,3 +29,7 @@ section.blog_area.single-post-area.section-margin
               p.excert = user.about
             - else
               p.excert Пользователь не заполнил данные
+
+      .col-md-3.text-center
+        - if current_user&.id == user.id
+          = link_to "Редактировать профиль", edit_user_path(current_user), class: "button button-hero mt-4"
