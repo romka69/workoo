@@ -264,6 +264,11 @@ Devise.setup do |config|
                   Rails.application.credentials[Rails.env.to_sym][:yandex][:app_id],
                   Rails.application.credentials[Rails.env.to_sym][:yandex][:app_secret]
 
+  config.omniauth :google_oauth2,
+                  Rails.application.credentials[Rails.env.to_sym][:google][:app_id],
+                  Rails.application.credentials[Rails.env.to_sym][:google][:app_secret],
+                  scope: 'userinfo.email, userinfo.profile'
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -73,14 +73,22 @@ feature 'The guest can Sign in/Sign up in service' do
   end
 
   describe 'Sign in/up with oAuth' do
-    scenario 'Yandex' do
+    background do
       Role.create!(role_name: 'not selected')
       visit new_user_registration_path
-      expect(page).to have_content("Войти через Yandex")
       mock_auth_hash
-      click_on 'Войти через Yandex'
+    end
 
-      expect(page).to have_content 'Вход в систему выполнен с учётной записью из Yandex'
+    scenario 'Yandex' do
+      click_on 'Войти через Яндекс'
+
+      expect(page).to have_content 'Вход в систему выполнен с учётной записью'
+    end
+
+    scenario 'Google' do
+      click_on 'Войти через Google'
+
+      expect(page).to have_content 'Вход в систему выполнен с учётной записью'
     end
   end
 
