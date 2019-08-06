@@ -22,6 +22,8 @@ module Workoo
     config.i18n.available_locales = [:ru]
     config.i18n.default_locale = :ru
 
+    config.autoload_paths += [config.root.join('app')]
+
     config.generators do |g|
       g.test_framework :rspec,
                        view_specs: false,
