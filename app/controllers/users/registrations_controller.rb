@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     build_resource(sign_up_params)
 
-    if ["executor", "customer"].include?(user_param["role"])
+    if ["executor", "customer", "not selected"].include?(user_param["role"])
       resource.role = Role.find_role(user_param["role"])
     end
 

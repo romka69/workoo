@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'The guest can Sign in/Sign up in service' do
-  describe 'Sign in' do
+  describe 'Sign in via email' do
     background do
       visit root_path
       click_on 'Логин'
@@ -38,7 +38,7 @@ feature 'The guest can Sign in/Sign up in service' do
     end
   end
 
-  describe 'Sign up' do
+  describe 'Sign up via email' do
     scenario 'unregistered user tries to sign up with errors' do
       visit root_path
       click_on 'Регистрация'
@@ -69,6 +69,26 @@ feature 'The guest can Sign in/Sign up in service' do
       click_on 'Зарегистрироваться'
 
       expect(page).to have_content 'Добро пожаловать! Вы успешно зарегистрировались.'
+    end
+  end
+
+  describe 'Sign in/up with oAuth' do
+    background do
+      Role.create!(role_name: 'not selected')
+      visit new_user_registration_path
+      mock_auth_hash
+    end
+
+    scenario 'Yandex' do
+      click_on 'Войти через Яндекс'
+
+      expect(page).to have_content 'Вход в систему выполнен с учётной записью'
+    end
+
+    scenario 'Google' do
+      click_on 'Войти через Google'
+
+      expect(page).to have_content 'Вход в систему выполнен с учётной записью'
     end
   end
 
