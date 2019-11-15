@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { registrations: 'users/registrations' }
+  devise_for :users, controllers: {
+                                registrations: 'users/registrations',
+                                omniauth_callbacks: 'oauth_callbacks'
+                              }
+
   root to: 'tasks#index'
+
+  resources :users, only: %i[show edit update]
 
   resources :tasks, except: %i[destroy] do
     patch :complete, on: :member

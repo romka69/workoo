@@ -3,6 +3,7 @@ class Task < ApplicationRecord
   validates :price, numericality: { only_integer: true }, presence: true
 
   belongs_to :author, class_name: 'User'
+  belongs_to :executor, class_name: 'User', optional: true
 
   has_many :comments, dependent: :destroy
   has_many :bids, dependent: :destroy
@@ -14,6 +15,6 @@ class Task < ApplicationRecord
   end
 
   def set_executor(user)
-    self.update!(executor_id: user.id)
+    self.update!(executor: user)
   end
 end

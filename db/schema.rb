@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_17_125127) do
+ActiveRecord::Schema.define(version: 2019_08_06_140258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "authorizations", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "provider"
+    t.string "uid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid"
+    t.index ["user_id"], name: "index_authorizations_on_user_id"
+  end
 
   create_table "bids", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -63,8 +73,9 @@ ActiveRecord::Schema.define(version: 2019_06_17_125127) do
     t.datetime "updated_at", null: false
     t.bigint "author_id"
     t.boolean "completed", default: false
-    t.integer "executor_id", default: 0
+    t.bigint "executor_id"
     t.index ["author_id"], name: "index_tasks_on_author_id"
+    t.index ["executor_id"], name: "index_tasks_on_executor_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,16 +87,23 @@ ActiveRecord::Schema.define(version: 2019_06_17_125127) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.bigint "role_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "city"
+    t.datetime "birth_date"
+    t.text "about"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role_id"], name: "index_users_on_role_id"
   end
 
+  add_foreign_key "authorizations", "users"
   add_foreign_key "bids", "tasks"
   add_foreign_key "bids", "users"
   add_foreign_key "comments", "users", column: "author_id"
   add_foreign_key "reviews", "users", column: "by_user_id"
   add_foreign_key "reviews", "users", column: "for_user_id"
   add_foreign_key "tasks", "users", column: "author_id"
+  add_foreign_key "tasks", "users", column: "executor_id"
   add_foreign_key "users", "roles"
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'The guest can register as customer or executor' do
-  describe 'Sign in' do
+feature 'The guest can Sign in/Sign up in service' do
+  describe 'Sign in via email' do
     background do
       visit root_path
       click_on 'Логин'
@@ -38,14 +38,20 @@ feature 'The guest can register as customer or executor' do
     end
   end
 
-  describe 'Sign up' do
+  describe 'Sign up via email' do
+    scenario 'unregistered user tries to sign up with errors' do
+      visit root_path
+      click_on 'Регистрация'
+      click_on 'Зарегистрироваться'
+
+      expect(page).to have_content 'сохранение не удалось'
+    end
+
     background do
       Role.create!([{ role_name: 'customer' }, { role_name: 'executor' }])
 
       visit root_path
       click_on 'Регистрация'
-
-      sleep 0.2
 
       fill_in 'Электронная почта', with: 'usertest@usertest.test'
       fill_in 'Пароль', with: '12345678'
@@ -63,6 +69,26 @@ feature 'The guest can register as customer or executor' do
       click_on 'Зарегистрироваться'
 
       expect(page).to have_content 'Добро пожаловать! Вы успешно зарегистрировались.'
+    end
+  end
+
+  describe 'Sign in/up with oAuth' do
+    background do
+      Role.create!(role_name: 'not selected')
+      visit new_user_registration_path
+      mock_auth_hash
+    end
+
+    scenario 'Yandex' do
+      click_on 'Войти через Яндекс'
+
+      expect(page).to have_content 'Вход в систему выполнен с учётной записью'
+    end
+
+    scenario 'Google' do
+      click_on 'Войти через Google'
+
+      expect(page).to have_content 'Вход в систему выполнен с учётной записью'
     end
   end
 

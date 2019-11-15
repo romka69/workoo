@@ -1,15 +1,15 @@
-article class="blog_item task task-#{task.id}"
+article class = "blog_item task task-#{task.id}"
   .blog_details
-    =link_to task_path(task), class: "d-inline-block"
-      h2=task.title
+    = link_to task_path(task), class: "d-inline-block"
+      h2 = task.title
     p #{task.price} руб.
-    p=task.body
+    p = task.body
     ul.blog-info-link
       li
-        //TODO: link on profile
-        i.far.fa-user= task.author.email
+        i.far.fa-user
+          = link_to task.author.email, user_path(task.author.id)
       //TODO: count of comments
       //li
-      //  a href="qwerty"
+      //  a href = "qwerty"
       //    i.far.fa-comments
       //      | NUMBER COMMENTS

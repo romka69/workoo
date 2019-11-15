@@ -7,6 +7,7 @@ RSpec.describe Task, type: :model do
   it { should validate_numericality_of :price }
 
   it { should belong_to :author }
+  it { should belong_to(:executor).optional }
 
   it { should have_many(:comments).dependent(:destroy) }
   it { should have_many(:bids).dependent(:destroy) }
@@ -44,7 +45,7 @@ RSpec.describe Task, type: :model do
     it 'set' do
       task2.set_executor(user)
 
-      expect(task2.executor_id).to eq user.id
+      expect(task2.executor).to eq user
     end
   end
 end

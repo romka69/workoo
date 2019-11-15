@@ -13,5 +13,17 @@ FactoryBot.define do
       email
       association :role, factory: [:role, :executor]
     end
+
+    trait :not_selected do
+      association :role, factory: [:role, :not_selected]
+    end
+
+    trait :profile do
+      first_name { 'Name_test' }
+      last_name { 'Last_name_test' }
+      city { 'City_test' }
+      birth_date { '21-04-2016' }
+      about { 'Test about' }
+    end
   end
 end

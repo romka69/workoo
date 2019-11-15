@@ -5,5 +5,9 @@ FactoryBot.define do
     trait :executor do
       role_name { "executor" }
     end
+
+    trait :not_selected do
+      role_name { "not selected" }
+    end
   end
 end
